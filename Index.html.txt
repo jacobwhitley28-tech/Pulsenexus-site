@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Nexus | DayZ Server</title>
+    <!-- FontAwesome for the Discord Icon -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        /* Base Styling & Theme Variables */
+        :root {
+            --purple-glow: #a855f7;
+            --purple-dark: #1e1b4b;
+            --gold-primary: #eab308;
+            --gold-glow: #fde047;
+            --bg-black: #090514;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Electric Storm / Background Ambient Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(118, 38, 224, 0.12) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(9, 5, 20, 0.8), rgba(9, 5, 20, 0.95));
+            z-index: -2;
+        }
+
+        /* Lightning Flash Simulation Layer */
+        .lightning-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(216, 180, 254, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            z-index: -1;
+            animation: lightning-strike 7s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes lightning-strike {
+            0%, 92%, 94%, 98%, 100% { opacity: 0; }
+            93% { opacity: 0.8; }
+            95% { opacity: 0.2; }
+            97% { opacity: 0.9; }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            padding: 40px 20px;
+            z-index: 10;
+        }
+
+        /* Subtitle/Game Tag */
+        .game-tag {
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+        }
+
+        /* Main Heading with Lightning/Electric Pulse Glow */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 21px var(--purple-glow),
+                0 0 42px var(--purple-glow),
+                0 0 82px var(--purple-glow);
+            animation: electric-pulse 3s infinite alternate;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        @keyframes electric-pulse {
+            0%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--purple-glow), 0 0 40px var(--purple-glow);
+            }
+            96% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--purple-glow), 0 0 40px var(--purple-glow);
+            }
+            98% {
+                text-shadow: 0 0 2px #fff, 0 0 4px var(--purple-glow), 0 0 15px var(--purple-glow);
+                color: #e9d5ff;
+            }
+        }
+
+        /* Season Text */
+        .season-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f3f4f6;
+            margin-bottom: 40px;
+            border-bottom: 2px dashed rgba(234, 179, 8, 0.3);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .season-text span {
+            color: var(--gold-primary);
+            text-shadow: 0 0 8px rgba(234, 179, 8, 0.5);
+        }
+
+        /* Server Preview Image Placeholder Zone */
+        .screenshot-preview {
+            width: 100%;
+            max-width: 600px;
+            height: 250px;
+            margin: 0 auto 40px auto;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(9, 5, 20, 0.8));
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7), inset 0 0 20px rgba(168, 85, 247, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtly animated decorative grid inside placeholder */
+        .screenshot-preview::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: linear-gradient(rgba(168, 85, 247, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1;
+        }
+
+        .placeholder-text {
+            z-index: 2;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+        }
+        
+        .placeholder-text i {
+            font-size: 2rem;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Gold and Purple Discord Match Button */
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #7289da 0%, #5b73c7 100%);
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 35px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4), 0 0 5px var(--gold-primary);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .discord-btn i {
+            font-size: 1.4rem;
+            transition: transform 0.3s ease;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), 0 0 15px var(--gold-primary);
+            background: linear-gradient(135deg, var(--purple-glow) 0%, #7c3aed 100%);
+            color: #fff;
+        }
+
+        .discord-btn:hover i {
+            transform: scale(1.2) rotate(-5deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.3rem; }
+            .season-text { font-size: 1.3rem; }
+            .screenshot-preview { height: 180px; }
+            .discord-btn { padding: 12px 25px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Lightning Effect Layer -->
+    <div class="lightning-bg"></div>
+
+    <div class="container">
+        <!-- Server Type Subtitle -->
+        <div class="game-tag"><i class="fa-solid disintegration fa-biohazard"></i> DayZ Hardcore Survival</div>
+        
+        <!-- Main Requested Copy -->
+        <h1>Pulse Nexus</h1>
+        <div class="season-text"><span>Season One</span> coming Winter 2026</div>
+
+        <!-- Future Photo Space (Configured & ready when you get images!) -->
+        <div class="screenshot-preview">
+            <div class="placeholder-text">
+                <i class="fa-regular fa-images"></i>
+                <p>Pulse Nexus Visuals Loading...</p>
+                <p style="font-size: 0.8rem; margin-top: 4px; color: rgba(255,255,255,0.4);">Drop server screenshots or logo files here later</p>
+            </div>
+        </div>
+
+        <!-- Custom Styled Match Discord Button -->
+        <a href="https://discord.gg/QC7DAYHrPW" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Join The Nexus Discord
+        </a>
+    </div>
+
+</body>
+</html>
